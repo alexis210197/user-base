@@ -5,6 +5,7 @@ const db = require('./utils/database')
 const port = require('../config').api.port
 
 const userRouter = require('./users/users.router')
+const userAuth = require('./auth/auth.router')
 
 db.authenticate()
     .then(() => console.log('Database Authenticated'))
@@ -20,7 +21,9 @@ app.get('/',  (req, res) => {
     res.status(200).json({message: 'Ok!'})
 })
 
+
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/auth', userAuth)
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
